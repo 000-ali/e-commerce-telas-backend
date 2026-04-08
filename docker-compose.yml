@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  activemq:
+    image: apache/activemq-classic:latest
+    container_name: activemq-ecommerce
+    ports:
+      - "61617:61616"
+      - "8163:8161"
+    environment:
+      ACTIVEMQ_USER: admin
+      ACTIVEMQ_PASSWORD: admin
