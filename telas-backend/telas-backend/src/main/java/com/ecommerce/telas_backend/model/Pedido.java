@@ -1,10 +1,14 @@
 package com.ecommerce.telas_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data                // gera automaticamente: getters, setters, toString, equals e hashCode
+@NoArgsConstructor   // gera o construtor vazio exigido pelo JPA
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -60,10 +64,9 @@ public class Pedido {
     }
 
     // =========================================================
-    // Construtores
+    // Construtor com os campos obrigatórios na criação do pedido.
+    // O @NoArgsConstructor já cuida do construtor vazio para o JPA.
     // =========================================================
-    public Pedido() {}
-
     public Pedido(Long clienteId, String clienteEmail, FormaPagamento formaPagamento, BigDecimal valorTotal) {
         this.clienteId = clienteId;
         this.clienteEmail = clienteEmail;
@@ -74,35 +77,12 @@ public class Pedido {
     }
 
     // =========================================================
-    // Getters e Setters
+    // setStatus sobrescrito para registrar atualizadoEm
+    // automaticamente toda vez que o status mudar.
+    // O @Data gera o setter padrão, mas este tem lógica extra.
     // =========================================================
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getClienteId() { return clienteId; }
-    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
-
-    public String getClienteEmail() { return clienteEmail; }
-    public void setClienteEmail(String clienteEmail) { this.clienteEmail = clienteEmail; }
-
-    public StatusPedido getStatus() { return status; }
     public void setStatus(StatusPedido status) {
         this.status = status;
         this.atualizadoEm = LocalDateTime.now();
     }
-
-    public FormaPagamento getFormaPagamento() { return formaPagamento; }
-    public void setFormaPagamento(FormaPagamento formaPagamento) { this.formaPagamento = formaPagamento; }
-
-    public BigDecimal getValorTotal() { return valorTotal; }
-    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-
-    public LocalDateTime getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
-
-    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
-
-    public List<ItemPedido> getItens() { return itens; }
-    public void setItens(List<ItemPedido> itens) { this.itens = itens; }
 }
