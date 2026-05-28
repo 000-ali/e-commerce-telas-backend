@@ -16,25 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-/**
- * SecurityConfig — define as regras de acesso de toda a API.
- *
- * Rotas públicas (sem token):
- *   POST /auth/login      → qualquer um pode fazer login
- *   POST /auth/cadastro   → qualquer um pode se cadastrar
- *   GET  /produtos        → catálogo público
- *   GET  /produtos/{id}   → detalhe público
- *   GET  /produtos/buscar → pesquisa pública
- *   GET  /produtos/artista → filtro público
- *
- * Rotas de Admin (exige token + perfil ADMINISTRADOR):
- *   qualquer /produtos/admin/**
- *
- * Rotas autenticadas (exige token, qualquer perfil):
- *   /carrinho/**
- *   /pedidos/**
- */
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -50,28 +37,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-
-                // Rotas públicas de autenticação
                 .requestMatchers("/auth/login", "/auth/cadastro").permitAll()
-
-                // Catálogo público (cliente não autenticado pode ver)
                 .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
                 .requestMatchers(HttpMethod.GET, "/produtos/{id}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/produtos/buscar").permitAll()
                 .requestMatchers(HttpMethod.GET, "/produtos/artista").permitAll()
-
-                // Rotas de admin — somente ADMINISTRADOR (RNF004)
                 .requestMatchers("/produtos/admin/**").hasRole("ADMINISTRADOR")
-
-                // Carrinho e pedidos — qualquer usuário autenticado
                 .requestMatchers("/carrinho/**").authenticated()
                 .requestMatchers("/pedidos/**").authenticated()
-
-                // Qualquer outra rota exige autenticação
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
@@ -81,8 +59,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+    @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+        // No Spring Boot 3, DaoAuthenticationProvider usa setters, não construtor
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

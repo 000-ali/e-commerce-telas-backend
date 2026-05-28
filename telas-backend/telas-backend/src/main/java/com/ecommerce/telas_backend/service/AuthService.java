@@ -8,20 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- * AuthService — lógica de cadastro e login.
- *
- * Cadastro:
- *   1. Verifica se e-mail já existe
- *   2. Criptografa a senha com BCrypt
- *   3. Salva o usuário com perfil CLIENTE
- *   4. Gera e retorna o token JWT
- *
- * Login:
- *   1. AuthenticationManager valida e-mail e senha
- *   2. Carrega o usuário do banco
- *   3. Gera e retorna o token JWT
- */
+
 @Service
 public class AuthService {
 
@@ -40,9 +27,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    // =========================================================
-    // Cadastro de novo usuário (perfil padrão: CLIENTE)
-    // =========================================================
+    
     public AuthDTO.AuthResponse cadastrar(AuthDTO.CadastroRequest request) {
 
         // Verifica se e-mail já está em uso
@@ -65,6 +50,7 @@ public class AuthService {
         String token = jwtService.gerarToken(usuario);
 
         return new AuthDTO.AuthResponse(
+                usuario.getId(),
                 token,
                 usuario.getNome(),
                 usuario.getEmail(),
@@ -92,6 +78,7 @@ public class AuthService {
         String token = jwtService.gerarToken(usuario);
 
         return new AuthDTO.AuthResponse(
+                usuario.getId(),
                 token,
                 usuario.getNome(),
                 usuario.getEmail(),
