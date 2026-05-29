@@ -4,7 +4,7 @@ Projeto Integrador de Módulo | Análise e Desenvolvimento de Sistemas
 Pontifícia Universidade Católica de Goiás — 2026
 
 ## Equipe
-Aline de Oliveira Tiburcio Souza
+Aline de Oliveira Tiburcio Souza -- 
 Cecília Vieira Braga
 
 ## Sobre o Projeto
