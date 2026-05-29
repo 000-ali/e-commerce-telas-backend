@@ -9,17 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * PedidoController — porta de entrada da API para pedidos.
- *
- * Endpoints disponíveis:
- *   POST   /pedidos/criar            → cria pedido e envia para a fila
- *   GET    /pedidos/{id}             → busca pedido por ID
- *   GET    /pedidos/cliente/{id}     → lista pedidos de um cliente
- *
- * O Controller apenas recebe e valida a requisição; a lógica de negócio
- * fica no PedidoService.
- */
+
 @RestController
 @RequestMapping("/pedidos")
 @CrossOrigin(origins = "*") // Permite chamadas do frontend React durante desenvolvimento
@@ -31,10 +21,8 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    // =========================================================
     // POST /pedidos/criar
     // Frontend chama esse endpoint ao finalizar o checkout
-    // =========================================================
     @PostMapping("/criar")
     public ResponseEntity<?> criarPedido(@RequestBody PedidoRequestDTO request) {
         try {
@@ -67,9 +55,7 @@ public class PedidoController {
         }
     }
 
-    // =========================================================
     // GET /pedidos/{id}
-    // =========================================================
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
@@ -80,17 +66,13 @@ public class PedidoController {
         }
     }
 
-    // =========================================================
     // GET /pedidos/cliente/{clienteId}
-    // =========================================================
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<List<Pedido>> buscarPorCliente(@PathVariable Long clienteId) {
         List<Pedido> pedidos = pedidoService.buscarPorCliente(clienteId);
         return ResponseEntity.ok(pedidos);
     }
 
-    // =========================================================
-    // Classe interna de resposta simplificada
-    // =========================================================
+    
     public record PedidoResponseSimples(Long pedidoId, String status, String mensagem) {}
 }

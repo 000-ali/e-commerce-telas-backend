@@ -7,15 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * CarrinhoController — endpoints REST do carrinho de compras.
- *
- *   GET    /carrinho/{clienteId}                  → visualizar carrinho
- *   POST   /carrinho/{clienteId}/adicionar        → adicionar produto
- *   DELETE /carrinho/{clienteId}/item/{itemId}    → remover item
- *   DELETE /carrinho/{clienteId}/limpar           → limpar carrinho inteiro
- *   POST   /carrinho/{clienteId}/finalizar        → finalizar compra → gera pedido
- */
 @RestController
 @RequestMapping("/carrinho")
 @CrossOrigin(origins = "*")
@@ -27,9 +18,7 @@ public class CarrinhoController {
         this.carrinhoService = carrinhoService;
     }
 
-    // =========================================================
-    // GET /carrinho/{clienteId} → visualizar carrinho
-    // =========================================================
+    // GET /carrinho/{clienteId} - visualizar carrinho
     @GetMapping("/{clienteId}")
     public ResponseEntity<?> verCarrinho(@PathVariable Long clienteId) {
         try {
@@ -41,10 +30,8 @@ public class CarrinhoController {
         }
     }
 
-    // =========================================================
-    // POST /carrinho/{clienteId}/adicionar → adicionar produto
+    // POST /carrinho/{clienteId}/adicionar - adicionar produto
     // Body: { "produtoId": 1, "quantidade": 1 }
-    // =========================================================
     @PostMapping("/{clienteId}/adicionar")
     public ResponseEntity<?> adicionarItem(@PathVariable Long clienteId,
                                            @RequestBody CarrinhoDTO.AdicionarItemRequest request) {
@@ -61,9 +48,8 @@ public class CarrinhoController {
         }
     }
 
-    // =========================================================
-    // DELETE /carrinho/{clienteId}/item/{itemId} → remover item
-    // =========================================================
+
+    // DELETE /carrinho/{clienteId}/item/{itemId} - remover item
     @DeleteMapping("/{clienteId}/item/{itemId}")
     public ResponseEntity<?> removerItem(@PathVariable Long clienteId,
                                          @PathVariable Long itemId) {
@@ -78,9 +64,8 @@ public class CarrinhoController {
         }
     }
 
-    // =========================================================
-    // DELETE /carrinho/{clienteId}/limpar → limpar carrinho
-    // =========================================================
+
+    // DELETE /carrinho/{clienteId}/limpar - limpar carrinho
     @DeleteMapping("/{clienteId}/limpar")
     public ResponseEntity<?> limparCarrinho(@PathVariable Long clienteId) {
         try {
@@ -94,10 +79,9 @@ public class CarrinhoController {
         }
     }
 
-    // =========================================================
-    // POST /carrinho/{clienteId}/finalizar → finalizar compra
+
+    // POST /carrinho/{clienteId}/finalizar - finalizar compra
     // Body: { "clienteEmail": "...", "formaPagamento": "PIX" }
-    // =========================================================
   @PostMapping("/{clienteId}/finalizar")
 public ResponseEntity<?> finalizarCompra(@PathVariable Long clienteId,
                                          @RequestBody FinalizarCompraRequest request) {

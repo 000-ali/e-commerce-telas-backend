@@ -58,9 +58,8 @@ public class AuthService {
         );
     }
 
-    // =========================================================
+
     // Login
-    // =========================================================
     public AuthDTO.AuthResponse login(AuthDTO.LoginRequest request) {
 
         // Valida e-mail e senha (lança exceção se inválido)

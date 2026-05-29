@@ -8,15 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * DTOs do módulo de Carrinho.
- * Todas as classes agrupadas aqui para facilitar a organização.
- */
+
 public class CarrinhoDTO {
 
-    // =========================================================
     // Request: adicionar item ao carrinho
-    // =========================================================
     public static class AdicionarItemRequest {
         private Long produtoId;
         private Integer quantidade;
@@ -30,9 +25,7 @@ public class CarrinhoDTO {
         public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     }
 
-    // =========================================================
     // Response: item individual do carrinho
-    // =========================================================
     public static class ItemCarrinhoResponse {
         private Long id;
         private Long produtoId;
@@ -60,9 +53,8 @@ public class CarrinhoDTO {
         public BigDecimal getSubtotal() { return subtotal; }
     }
 
-    // =========================================================
+   
     // Response: carrinho completo com itens e total
-    // =========================================================
     public static class CarrinhoResponse {
         private Long id;
         private Long clienteId;

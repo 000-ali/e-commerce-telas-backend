@@ -4,10 +4,7 @@ import com.ecommerce.telas_backend.model.Pedido.FormaPagamento;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * DTO recebido do Frontend via POST /pedidos/criar.
- * Contém os dados brutos do checkout para criar o pedido.
- */
+
 public class PedidoRequestDTO {
 
     private Long clienteId;
@@ -15,9 +12,6 @@ public class PedidoRequestDTO {
     private FormaPagamento formaPagamento;
     private List<ItemRequestDTO> itens;
 
-    // =========================================================
-    // Classe interna: item enviado pelo frontend
-    // =========================================================
     public static class ItemRequestDTO {
         private Long produtoId;
         private String nomeProduto;
@@ -39,9 +33,6 @@ public class PedidoRequestDTO {
         public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     }
 
-    // =========================================================
-    // Getters e Setters
-    // =========================================================
     public Long getClienteId() { return clienteId; }
     public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
 

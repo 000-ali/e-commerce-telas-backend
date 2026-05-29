@@ -43,9 +43,6 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemPedido> itens;
 
-    // =========================================================
-    // Enum: Status do Pedido
-    // =========================================================
     public enum StatusPedido {
         AGUARDANDO_PAGAMENTO,
         APROVADO,
@@ -54,19 +51,14 @@ public class Pedido {
         ENTREGUE
     }
 
-    // =========================================================
-    // Enum: Forma de Pagamento (padrão Strategy)
-    // =========================================================
+   
     public enum FormaPagamento {
         PIX,
         CARTAO_CREDITO,
         BOLETO
     }
 
-    // =========================================================
-    // Construtor com os campos obrigatórios na criação do pedido.
-    // O @NoArgsConstructor já cuida do construtor vazio para o JPA.
-    // =========================================================
+  
     public Pedido(Long clienteId, String clienteEmail, FormaPagamento formaPagamento, BigDecimal valorTotal) {
         this.clienteId = clienteId;
         this.clienteEmail = clienteEmail;
@@ -76,11 +68,6 @@ public class Pedido {
         this.criadoEm = LocalDateTime.now();
     }
 
-    // =========================================================
-    // setStatus sobrescrito para registrar atualizadoEm
-    // automaticamente toda vez que o status mudar.
-    // O @Data gera o setter padrão, mas este tem lógica extra.
-    // =========================================================
     public void setStatus(StatusPedido status) {
         this.status = status;
         this.atualizadoEm = LocalDateTime.now();

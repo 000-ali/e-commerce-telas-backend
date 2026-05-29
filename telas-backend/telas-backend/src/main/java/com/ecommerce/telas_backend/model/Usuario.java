@@ -37,17 +37,12 @@ public class Usuario implements UserDetails {
     @Column(name = "criado_em", nullable = false)
     private LocalDateTime criadoEm;
 
-    // =========================================================
-    // Enum: perfis de acesso
-    // =========================================================
+   
     public enum Perfil {
         CLIENTE,
         ADMINISTRADOR
     }
 
-    // =========================================================
-    // Construtor com campos obrigatórios
-    // =========================================================
     public Usuario(String nome, String email, String senha, Perfil perfil) {
         this.nome = nome;
         this.email = email;
@@ -56,9 +51,7 @@ public class Usuario implements UserDetails {
         this.criadoEm = LocalDateTime.now();
     }
 
-    // =========================================================
-    // Implementação do UserDetails (exigido pelo Spring Security)
-    // =========================================================
+   
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + perfil.name()));

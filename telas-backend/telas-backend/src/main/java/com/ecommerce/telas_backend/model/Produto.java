@@ -34,9 +34,6 @@ public class Produto {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    // =========================================================
-    // Construtor com campos obrigatórios
-    // =========================================================
     public Produto(String nome, String artista, BigDecimal preco) {
         this.nome = nome;
         this.artista = artista;
@@ -45,9 +42,7 @@ public class Produto {
         this.criadoEm = LocalDateTime.now();
     }
 
-    // =========================================================
-    // Atualiza atualizadoEm automaticamente ao alterar o produto
-    // =========================================================
+   
     public void atualizar(String nome, String artista, BigDecimal preco, Boolean disponivel) {
         this.nome = nome;
         this.artista = artista;

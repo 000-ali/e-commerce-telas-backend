@@ -12,19 +12,6 @@ import com.ecommerce.telas_backend.model.Pedido.StatusPedido;
 import com.ecommerce.telas_backend.repository.PedidoRepository;
 import com.ecommerce.telas_backend.service.NotificacaoService;
 
-/**
- * PedidoConsumer — escuta a fila do ActiveMQ e processa pedidos.
- *
- * Fluxo completo ao receber uma mensagem:
- *   1. Busca o pedido no banco pelo ID
- *   2. Atualiza o status conforme a forma de pagamento
- *   3. Salva o novo status no banco
- *   4. Envia notificação ao cliente (Observer)
- *
- * O @Transactional garante que banco e status ficam consistentes:
- * se qualquer etapa falhar, o banco faz rollback e o ActiveMQ
- * recoloca a mensagem na fila para nova tentativa.
- */
 @Service
 public class PedidoConsumer {
 
@@ -36,17 +23,14 @@ public class PedidoConsumer {
         this.notificacaoService = notificacaoService;
     }
 
-    /**
-     * Escuta a fila configurada em ${app.queue.pedidos}.
-     * O Spring desserializa o JSON automaticamente para PedidoMensagem.
-     */
+   
     @JmsListener(destination = "${app.queue.pedidos}")
     @Transactional
     public void receberPedido(PedidoMensagem mensagem) {
         System.out.println("[Consumer] Pedido #" + mensagem.getPedidoId() + " recebido da fila.");
 
         try {
-            // ETAPA 1: Buscar pedido no banco
+            // Buscar pedido no banco
             Optional<Pedido> optPedido = (Optional<Pedido>) pedidoRepository.findById(mensagem.getPedidoId());
 
             if (optPedido.isEmpty()) {
@@ -56,16 +40,16 @@ public class PedidoConsumer {
 
             Pedido pedido = optPedido.get();
 
-            // ETAPA 2: Determinar novo status conforme a forma de pagamento
+            // Determinar novo status conforme a forma de pagamento
             StatusPedido novoStatus = determinarStatus(mensagem);
 
-            // ETAPA 3: Atualizar e salvar o status no banco
+            // Atualizar e salvar o status no banco
             pedido.setStatus(novoStatus);
             pedidoRepository.save(pedido);
             System.out.println("[Consumer] Pedido #" + mensagem.getPedidoId()
                     + " atualizado para status: " + novoStatus);
 
-            // ETAPA 4: Notificar o cliente (padrão Observer)
+            // Notificar o cliente (padrão Observer)
             notificacaoService.notificarConfirmacaoPedido(mensagem);
             notificacaoService.notificarAtualizacaoStatus(
                     mensagem.getPedidoId(), mensagem.getClienteEmail(), novoStatus);
@@ -78,9 +62,8 @@ public class PedidoConsumer {
         }
     }
 
-    // =========================================================
+    
     // Determina o status inicial conforme forma de pagamento
-    // =========================================================
     private StatusPedido determinarStatus(PedidoMensagem mensagem) {
         return switch (mensagem.getFormaPagamento()) {
             // Pix e Boleto ficam aguardando confirmação do gateway externo

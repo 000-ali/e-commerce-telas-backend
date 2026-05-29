@@ -13,15 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-/**
- * JwtService — responsável por gerar, validar e extrair dados dos tokens JWT.
- *
- * Fluxo:
- *   1. Cliente faz login → JwtService gera token com e-mail e perfil
- *   2. Cliente envia token no header de cada requisição
- *   3. JwtAuthFilter intercepta → JwtService valida o token
- *   4. Spring Security libera ou bloqueia o acesso
- */
 @Service
 public class JwtService {
 
@@ -31,9 +22,7 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    // =========================================================
     // Gera token JWT para o usuário autenticado
-    // =========================================================
     public String gerarToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("perfil", userDetails.getAuthorities()
@@ -51,24 +40,18 @@ public class JwtService {
                 .compact();
     }
 
-    // =========================================================
     // Valida se o token é válido para o usuário
-    // =========================================================
     public boolean isTokenValido(String token, UserDetails userDetails) {
         final String email = extrairEmail(token);
         return email.equals(userDetails.getUsername()) && !isTokenExpirado(token);
     }
 
-    // =========================================================
     // Extrai o e-mail (subject) do token
-    // =========================================================
     public String extrairEmail(String token) {
         return extrairClaim(token, Claims::getSubject);
     }
 
-    // =========================================================
     // Métodos internos
-    // =========================================================
     private boolean isTokenExpirado(String token) {
         return extrairExpiracao(token).before(new Date());
     }

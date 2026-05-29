@@ -31,17 +31,12 @@ public class Carrinho {
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemCarrinho> itens = new ArrayList<>();
 
-    // =========================================================
-    // Construtor com clienteId
-    // =========================================================
     public Carrinho(Long clienteId) {
         this.clienteId = clienteId;
         this.criadoEm = LocalDateTime.now();
     }
 
-    // =========================================================
-    // Calcula o valor total do carrinho
-    // =========================================================
+  
     public BigDecimal calcularTotal() {
         return itens.stream()
                 .map(item -> item.getPrecoUnitario()
@@ -49,16 +44,11 @@ public class Carrinho {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // =========================================================
-    // Verifica se o carrinho está vazio
-    // =========================================================
     public boolean isEmpty() {
         return itens == null || itens.isEmpty();
     }
 
-    // =========================================================
-    // Atualiza atualizadoEm ao modificar o carrinho
-    // =========================================================
+   
     public void marcarAtualizado() {
         this.atualizadoEm = LocalDateTime.now();
     }

@@ -4,10 +4,7 @@ import com.ecommerce.telas_backend.model.Pedido.FormaPagamento;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * DTO que representa o pedido serializado em JSON dentro da fila ActiveMQ.
- * É o objeto que "viaja" entre o Producer e o Consumer.
- */
+
 public class PedidoMensagem {
 
     private Long pedidoId;
@@ -17,9 +14,6 @@ public class PedidoMensagem {
     private BigDecimal valorTotal;
     private List<ItemMensagem> itens;
 
-    // =========================================================
-    // Classe interna: item do pedido dentro da mensagem
-    // =========================================================
     public static class ItemMensagem {
         private Long produtoId;
         private String nomeProduto;
@@ -48,9 +42,6 @@ public class PedidoMensagem {
         public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     }
 
-    // =========================================================
-    // Construtores
-    // =========================================================
     public PedidoMensagem() {}
 
     public PedidoMensagem(Long pedidoId, Long clienteId, String clienteEmail,
@@ -64,9 +55,7 @@ public class PedidoMensagem {
         this.itens = itens;
     }
 
-    // =========================================================
-    // Getters e Setters
-    // =========================================================
+
     public Long getPedidoId() { return pedidoId; }
     public void setPedidoId(Long pedidoId) { this.pedidoId = pedidoId; }
 

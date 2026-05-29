@@ -6,14 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * AuthController — endpoints de autenticação.
- *
- *   POST /auth/cadastro  → cadastra novo usuário e retorna token JWT
- *   POST /auth/login     → autentica usuário e retorna token JWT
- *
- * Ambos são públicos (não exigem token).
- */
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
@@ -25,10 +18,8 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // =========================================================
     // POST /auth/cadastro
     // Body: { "nome": "...", "email": "...", "senha": "..." }
-    // =========================================================
     @PostMapping("/cadastro")
     public ResponseEntity<?> cadastrar(@RequestBody AuthDTO.CadastroRequest request) {
         try {
@@ -42,10 +33,8 @@ public class AuthController {
         }
     }
 
-    // =========================================================
     // POST /auth/login
     // Body: { "email": "...", "senha": "..." }
-    // =========================================================
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthDTO.LoginRequest request) {
         try {

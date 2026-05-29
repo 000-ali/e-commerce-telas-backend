@@ -4,10 +4,7 @@ import com.ecommerce.telas_backend.model.Produto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * DTO enviado ao Frontend com os dados do produto.
- * Evita expor a entidade JPA diretamente na API.
- */
+
 public class ProdutoResponseDTO {
 
     private Long id;
@@ -18,9 +15,6 @@ public class ProdutoResponseDTO {
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
 
-    // =========================================================
-    // Converte entidade Produto para DTO de resposta
-    // =========================================================
     public static ProdutoResponseDTO fromEntity(Produto produto) {
         ProdutoResponseDTO dto = new ProdutoResponseDTO();
         dto.id = produto.getId();

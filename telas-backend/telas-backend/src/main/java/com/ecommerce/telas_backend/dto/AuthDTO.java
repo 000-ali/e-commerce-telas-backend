@@ -1,8 +1,5 @@
 package com.ecommerce.telas_backend.dto;
 
-/**
- * DTOs do módulo de autenticação.
- */
 public class AuthDTO {
 
     // Request: cadastro de novo usuário

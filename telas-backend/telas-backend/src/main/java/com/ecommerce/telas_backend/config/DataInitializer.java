@@ -6,15 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-/**
- * DataInitializer — roda automaticamente toda vez que o projeto sobe.
- *
- * Verifica se já existe um Administrador no banco.
- * Se não existir, cria um com as credenciais padrão.
- *
- * Isso garante que sempre haverá um Admin disponível,
- * independente do ambiente (local, produção, banco zerado).
- */
+
 @Component
 public class DataInitializer implements CommandLineRunner {
 

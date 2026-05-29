@@ -9,21 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * ProdutoController — endpoints REST do catálogo de pinturas.
- *
- * Endpoints públicos (cliente pode acessar):
- *   GET  /produtos                     → lista todos os disponíveis
- *   GET  /produtos/{id}                → detalhe de uma pintura
- *   GET  /produtos/buscar?nome=...     → pesquisa por nome da obra
- *   GET  /produtos/artista?nome=...    → filtra por artista
- *
- * Endpoints admin (somente Administrador — controle via Spring Security futuramente):
- *   POST   /produtos/admin             → cadastrar nova pintura
- *   PUT    /produtos/admin/{id}        → editar pintura
- *   DELETE /produtos/admin/{id}        → remover pintura
- *   GET    /produtos/admin/todos       → lista todos (incluindo indisponíveis)
- */
 @RestController
 @RequestMapping("/produtos")
 @CrossOrigin(origins = "*")
@@ -35,17 +20,15 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
-    // =========================================================
-    // PÚBLICOS — catálogo do cliente
-    // =========================================================
 
-    // GET /produtos → lista pinturas disponíveis
+
+    // GET /produtos - lista pinturas disponíveis
     @GetMapping
     public ResponseEntity<List<ProdutoResponseDTO>> listarDisponiveis() {
         return ResponseEntity.ok(produtoService.listarDisponiveis());
     }
 
-    // GET /produtos/{id} → detalhe de uma pintura
+    // GET /produtos/{id} - detalhe de uma pintura
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
@@ -55,29 +38,26 @@ public class ProdutoController {
         }
     }
 
-    // GET /produtos/buscar?nome=monalisa → pesquisa por nome
+    // GET /produtos/buscar?nome=monalisa - pesquisa por nome
     @GetMapping("/buscar")
     public ResponseEntity<List<ProdutoResponseDTO>> buscarPorNome(@RequestParam String nome) {
         return ResponseEntity.ok(produtoService.buscarPorNome(nome));
     }
 
-    // GET /produtos/artista?nome=van+gogh → filtra por artista
+    // GET /produtos/artista?nome=van+gogh - filtra por artista
     @GetMapping("/artista")
     public ResponseEntity<List<ProdutoResponseDTO>> filtrarPorArtista(@RequestParam String nome) {
         return ResponseEntity.ok(produtoService.filtrarPorArtista(nome));
     }
 
-    // =========================================================
     // ADMIN — gerenciamento do catálogo
-    // =========================================================
-
-    // GET /produtos/admin/todos → lista todos (incluindo indisponíveis)
+    // GET /produtos/admin/todos - lista todos (incluindo indisponíveis)
     @GetMapping("/admin/todos")
     public ResponseEntity<List<ProdutoResponseDTO>> listarTodos() {
         return ResponseEntity.ok(produtoService.listarTodos());
     }
 
-    // POST /produtos/admin → cadastrar nova pintura
+    // POST /produtos/admin - cadastrar nova pintura
     @PostMapping("/admin")
     public ResponseEntity<?> criar(@RequestBody ProdutoRequestDTO request) {
         try {
@@ -91,7 +71,7 @@ public class ProdutoController {
         }
     }
 
-    // PUT /produtos/admin/{id} → editar pintura
+    // PUT /produtos/admin/{id} - editar pintura
     @PutMapping("/admin/{id}")
     public ResponseEntity<?> editar(@PathVariable Long id, @RequestBody ProdutoRequestDTO request) {
         try {
@@ -105,7 +85,7 @@ public class ProdutoController {
         }
     }
 
-    // DELETE /produtos/admin/{id} → remover pintura
+    // DELETE /produtos/admin/{id} - remover pintura
     @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> remover(@PathVariable Long id) {
         try {

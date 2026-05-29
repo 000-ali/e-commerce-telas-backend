@@ -2,9 +2,7 @@ package com.ecommerce.telas_backend.dto;
 
 import java.math.BigDecimal;
 
-/**
- * DTO recebido do Frontend para criar ou editar um produto.
- */
+
 public class ProdutoRequestDTO {
 
     private String nome;

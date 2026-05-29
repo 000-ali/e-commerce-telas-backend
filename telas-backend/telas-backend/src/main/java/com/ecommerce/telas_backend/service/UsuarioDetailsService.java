@@ -6,12 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-/**
- * UsuarioDetailsService — implementação do UserDetailsService do Spring Security.
- *
- * O Spring Security chama loadUserByUsername para buscar o usuário
- * no banco durante a autenticação.
- */
+
 @Service
 public class UsuarioDetailsService implements UserDetailsService {
 

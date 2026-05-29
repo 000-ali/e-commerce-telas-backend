@@ -27,9 +27,7 @@ public class ItemPedido {
     @Column(nullable = false)
     private Integer quantidade;
 
-    // =========================================================
-    // Construtores
-    // =========================================================
+  
     public ItemPedido() {}
 
     public ItemPedido(Long produtoId, String nomeProduto, BigDecimal precoUnitario, Integer quantidade) {
@@ -39,9 +37,8 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
-    // =========================================================
-    // Getters e Setters
-    // =========================================================
+  
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

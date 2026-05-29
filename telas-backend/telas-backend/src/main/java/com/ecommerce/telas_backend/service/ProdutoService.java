@@ -10,13 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * ProdutoService — lógica de negócio do CRUD de produtos.
- *
- * Integração com NotificacaoService (padrão Observer):
- *   - Quando Admin altera disponibilidade para true → notifica clientes
- *   - Quando Admin altera preço para promoção → notifica clientes
- */
 @Service
 public class ProdutoService {
 
@@ -28,9 +21,7 @@ public class ProdutoService {
         this.notificacaoService = notificacaoService;
     }
 
-    // =========================================================
-    // CREATE — cadastrar novo produto (somente Admin)
-    // =========================================================
+   
     @Transactional
     public ProdutoResponseDTO criar(ProdutoRequestDTO request) {
         validarRequest(request);
@@ -50,9 +41,7 @@ public class ProdutoService {
         return ProdutoResponseDTO.fromEntity(salvo);
     }
 
-    // =========================================================
-    // READ — listar todos os produtos
-    // =========================================================
+
     public List<ProdutoResponseDTO> listarTodos() {
         return produtoRepository.findAll()
                 .stream()
@@ -60,9 +49,6 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // =========================================================
-    // READ — listar apenas disponíveis (para o catálogo do cliente)
-    // =========================================================
     public List<ProdutoResponseDTO> listarDisponiveis() {
         return produtoRepository.findByDisponivelTrue()
                 .stream()
@@ -70,17 +56,13 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // =========================================================
-    // READ — buscar por ID
-    // =========================================================
+   
     public ProdutoResponseDTO buscarPorId(Long id) {
         Produto produto = buscarEntidadePorId(id);
         return ProdutoResponseDTO.fromEntity(produto);
     }
 
-    // =========================================================
-    // READ — buscar por nome (pesquisa do catálogo)
-    // =========================================================
+    
     public List<ProdutoResponseDTO> buscarPorNome(String nome) {
         return produtoRepository.findByNomeContainingIgnoreCase(nome)
                 .stream()
@@ -88,9 +70,7 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // =========================================================
-    // READ — filtrar por artista
-    // =========================================================
+   
     public List<ProdutoResponseDTO> filtrarPorArtista(String artista) {
         return produtoRepository.findByArtistaContainingIgnoreCaseAndDisponivelTrue(artista)
                 .stream()
@@ -98,10 +78,7 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // =========================================================
-    // UPDATE — editar produto (somente Admin)
-    // Dispara notificação se disponibilidade ou preço mudar
-    // =========================================================
+    
     @Transactional
     public ProdutoResponseDTO editar(Long id, ProdutoRequestDTO request) {
         validarRequest(request);
@@ -146,9 +123,7 @@ public class ProdutoService {
         return ProdutoResponseDTO.fromEntity(atualizado);
     }
 
-    // =========================================================
-    // DELETE — remover produto (somente Admin)
-    // =========================================================
+
     @Transactional
     public void remover(Long id) {
         Produto produto = buscarEntidadePorId(id);
@@ -156,17 +131,11 @@ public class ProdutoService {
         System.out.println("[ProdutoService] Produto removido: " + produto.getNome());
     }
 
-    // =========================================================
-    // Método interno — busca entidade ou lança exceção
-    // =========================================================
     private Produto buscarEntidadePorId(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto #" + id + " não encontrado."));
     }
 
-    // =========================================================
-    // Validações básicas do request
-    // =========================================================
     private void validarRequest(ProdutoRequestDTO request) {
         if (request.getNome() == null || request.getNome().isBlank()) {
             throw new IllegalArgumentException("Nome do produto é obrigatório.");

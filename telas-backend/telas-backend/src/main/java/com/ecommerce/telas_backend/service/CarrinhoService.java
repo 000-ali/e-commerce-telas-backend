@@ -13,16 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * CarrinhoService — lógica de negócio do carrinho de compras.
- *
- * Fluxo:
- *   1. Cliente adiciona produto → cria carrinho se não existir, senão adiciona item
- *   2. Se produto já estiver no carrinho → incrementa quantidade
- *   3. Cliente remove item → remove do banco
- *   4. Cliente visualiza carrinho → retorna itens + total calculado
- *   5. Cliente finaliza → CarrinhoService monta o PedidoRequestDTO e chama PedidoService
- */
 @Service
 public class CarrinhoService {
 
@@ -41,9 +31,7 @@ public class CarrinhoService {
         this.pedidoService = pedidoService;
     }
 
-    // =========================================================
     // Buscar ou criar carrinho do cliente
-    // =========================================================
     public CarrinhoDTO.CarrinhoResponse buscarOuCriarCarrinho(Long clienteId) {
         Carrinho carrinho = carrinhoRepository.findByClienteId(clienteId)
                 .orElseGet(() -> {
@@ -53,9 +41,7 @@ public class CarrinhoService {
         return CarrinhoDTO.CarrinhoResponse.fromEntity(carrinho);
     }
 
-    // =========================================================
     // Adicionar produto ao carrinho
-    // =========================================================
     @Transactional
     public CarrinhoDTO.CarrinhoResponse adicionarItem(Long clienteId, CarrinhoDTO.AdicionarItemRequest request) {
 
@@ -107,9 +93,7 @@ public class CarrinhoService {
         return CarrinhoDTO.CarrinhoResponse.fromEntity(atualizado);
     }
 
-    // =========================================================
     // Remover item do carrinho
-    // =========================================================
     @Transactional
     public CarrinhoDTO.CarrinhoResponse removerItem(Long clienteId, Long itemId) {
         Carrinho carrinho = buscarCarrinhoPorCliente(clienteId);
@@ -133,9 +117,7 @@ public class CarrinhoService {
         return CarrinhoDTO.CarrinhoResponse.fromEntity(atualizado);
     }
 
-    // =========================================================
     // Limpar carrinho inteiro
-    // =========================================================
     @Transactional
     public void limparCarrinho(Long clienteId) {
         Carrinho carrinho = buscarCarrinhoPorCliente(clienteId);
@@ -145,16 +127,14 @@ public class CarrinhoService {
         System.out.println("[CarrinhoService] Carrinho do cliente #" + clienteId + " limpo.");
     }
 
-    // =========================================================
     // Finalizar compra — converte carrinho em pedido
-    // =========================================================
     @Transactional
     public Object finalizarCompra(Long clienteId, String clienteEmail,
                                   com.ecommerce.telas_backend.model.Pedido.FormaPagamento formaPagamento) {
 
         Carrinho carrinho = buscarCarrinhoPorCliente(clienteId);
 
-        // Bloqueia finalização se carrinho estiver vazio (CT-013)
+        // Bloqueia finalização se carrinho estiver vazio 
         if (carrinho.isEmpty()) {
             throw new RuntimeException("Carrinho vazio. Adicione produtos antes de finalizar.");
         }
@@ -190,9 +170,7 @@ public class CarrinhoService {
         return pedido;
     }
 
-    // =========================================================
     // Método interno — busca carrinho ou lança exceção
-    // =========================================================
     private Carrinho buscarCarrinhoPorCliente(Long clienteId) {
         return carrinhoRepository.findByClienteId(clienteId)
                 .orElseThrow(() -> new RuntimeException("Carrinho do cliente #" + clienteId + " não encontrado."));

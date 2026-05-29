@@ -34,9 +34,6 @@ public class ItemCarrinho {
     @Column(nullable = false)
     private Integer quantidade;
 
-    // =========================================================
-    // Construtor com campos obrigatórios
-    // =========================================================
     public ItemCarrinho(Carrinho carrinho, Long produtoId, String nomeProduto,
                         BigDecimal precoUnitario, Integer quantidade) {
         this.carrinho = carrinho;
@@ -46,9 +43,7 @@ public class ItemCarrinho {
         this.quantidade = quantidade;
     }
 
-    // =========================================================
-    // Calcula subtotal deste item (precoUnitario * quantidade)
-    // =========================================================
+   
     public BigDecimal calcularSubtotal() {
         return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
     }
