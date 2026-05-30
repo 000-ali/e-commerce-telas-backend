@@ -29,7 +29,7 @@ public class PedidoService {
      * Cria o pedido no banco e publica na fila.
      * @return o Pedido salvo com ID gerado
      */
-    @Transactional
+    @Transactional (propagation = org.springframework.transaction.annotation.Propagation.REQUIRES_NEW)
     public Pedido criarPedido(PedidoRequestDTO request) {
 
         // Calcular valor total somando precoUnitario * quantidade de cada item

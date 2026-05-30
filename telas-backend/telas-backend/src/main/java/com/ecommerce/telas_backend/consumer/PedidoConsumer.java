@@ -29,7 +29,10 @@ public class PedidoConsumer {
     public void receberPedido(PedidoMensagem mensagem) {
         System.out.println("[Consumer] Pedido #" + mensagem.getPedidoId() + " recebido da fila.");
 
+
         try {
+             Thread.sleep(1000);
+             
             // Buscar pedido no banco
             Optional<Pedido> optPedido = (Optional<Pedido>) pedidoRepository.findById(mensagem.getPedidoId());
 
