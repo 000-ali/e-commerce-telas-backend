@@ -1,0 +1,65 @@
+.rodape {
+  background: #1a1a1a;
+  color: #c8c0b8;
+  padding: 4rem 2rem 0;
+}
+
+.interior {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.marca {}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #fff;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.slogan { font-size: 0.85rem; line-height: 1.7; color: #8a8278; max-width: 260px; }
+
+.tituloColuna {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.listaColuna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #8a8278;
+}
+.listaColuna a { color: #8a8278; transition: color 150ms; }
+.listaColuna a:hover { color: #fff; }
+
+.fundo {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.25rem 0;
+  font-size: 0.78rem;
+  color: #4a4540;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .interior { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .marca { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .interior { grid-template-columns: 1fr; }
+  .rodape { padding: 3rem 1rem 0; }
+}

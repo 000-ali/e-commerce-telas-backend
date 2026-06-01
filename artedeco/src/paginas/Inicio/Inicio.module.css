@@ -1,0 +1,66 @@
+.secoes {
+  background: var(--color-bg);
+}
+
+.secao {
+  padding: 3rem 0 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ctaSecao {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 2rem 2rem;
+}
+
+.sobre {
+  padding: 4rem 2rem 5rem;
+}
+
+.interiorSobre {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.tituloSobre {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: var(--color-text-primary);
+}
+
+.textoSobre {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.textoSobre p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+}
+
+.botaoCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  border: 1.5px solid var(--color-text-primary);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  background: transparent;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+}
+.botaoCta:hover { background: var(--color-text-primary); color: #fff; }
+
+@media (max-width: 640px) {
+  .sobre { padding: 3rem 1rem 4rem; }
+  .ctaSecao { padding: 1rem 1rem 2rem; }
+}

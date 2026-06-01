@@ -1,0 +1,156 @@
+.cabecalho {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border-light);
+  height: var(--header-height);
+}
+
+.interior {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav { flex: 1; }
+
+.listaNav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.linkNav {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+}
+.linkNav:hover { color: var(--color-text-primary); background: rgba(0,0,0,0.04); }
+.linkNav.ativo { font-weight: 500; color: var(--color-text-primary); }
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.botaoIcone {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  transition: background var(--transition-fast);
+  text-decoration: none;
+}
+.botaoIcone:hover { background: rgba(0,0,0,0.06); }
+
+.icone { width: 20px; height: 20px; object-fit: contain; }
+
+.wrapperCarrinho { position: relative; display: flex; }
+.contadorCarrinho {
+  position: absolute; top: -6px; right: -6px;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  background: var(--color-accent); color: #fff;
+  font-size: 0.65rem; font-weight: 600;
+  border-radius: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Search */
+.wrapperBusca { position: relative; }
+
+.dropdownBusca {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 360px;
+  background: #fff;
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 200;
+}
+
+.campoBusca {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--color-border-light);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  background: #faf8f5;
+}
+
+.resultadosBusca { max-height: 320px; overflow-y: auto; }
+
+.itemResultado {
+  display: flex; gap: 0.75rem; align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.itemResultado:hover { background: #f5f0ea; }
+
+.miniaturaResultado {
+  width: 44px; height: 56px;
+  object-fit: cover; border-radius: 2px; flex-shrink: 0;
+}
+.tituloResultado { font-size: 0.875rem; font-weight: 500; color: var(--color-text-primary); }
+.artistaResultado { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.semResultados { padding: 1rem; font-size: 0.875rem; color: var(--color-text-muted); text-align: center; }
+
+/* User menu */
+.menuUsuario { position: relative; }
+.dropdownUsuario {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  padding: 0.75rem 1rem;
+  min-width: 160px;
+  z-index: 200;
+}
+.menuUsuario:hover .dropdownUsuario { display: block; }
+.nomeUsuario { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--color-text-primary); }
+.botaoSair {
+  font-size: 0.8rem; color: var(--color-text-muted);
+  padding: 0.35rem 0;
+  transition: color var(--transition-fast);
+  cursor: pointer;
+}
+.botaoSair:hover { color: #c0392b; }
+
+@media (max-width: 768px) {
+  .interior { padding: 0 1rem; }
+  .nav { display: none; }
+  .logo { font-size: 1.2rem; }
+  .dropdownBusca { width: calc(100vw - 2rem); right: -40px; }
+}

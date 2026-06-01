@@ -1,0 +1,80 @@
+.pagina {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: calc(var(--header-height) + 3rem) 0 6rem;
+}
+
+.interior {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.cabecalho {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 2rem;
+}
+
+.subtitulo {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-bottom: 4rem;
+}
+
+.paragrafo {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+}
+
+.destaques {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.destaque {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.numero {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+.rotuloDestaque {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .interior { padding: 0 1rem; }
+  .destaques { grid-template-columns: repeat(2, 1fr); }
+}

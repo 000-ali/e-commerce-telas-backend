@@ -1,0 +1,211 @@
+.sobreposicao {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 199;
+  pointer-events: none;
+  transition: background var(--transition-base);
+}
+
+.sobreposicaoVisivel {
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: all;
+}
+
+.carrinho {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 100vw;
+  background: var(--color-cart-bg);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--transition-slow);
+  box-shadow: var(--shadow-cart);
+}
+
+.carrinhoAberto {
+  transform: translateX(0);
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem 0.75rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.botaoFechar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  transition: background var(--transition-fast);
+}
+
+.botaoFechar:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.contadorItens {
+  padding: 0.75rem 1.75rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.listaItens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vazio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  padding: 3rem 0;
+}
+
+.item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #e8e0d8;
+  border-radius: 4px;
+  align-items: flex-start;
+}
+
+.imagemItem {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.infoItem {
+  flex: 1;
+  min-width: 0;
+}
+
+.artistaItem {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.tituloItem {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text-primary);
+  margin: 0.1rem 0;
+}
+
+.procedenciaItem {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.precoItem {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.botaoRemover {
+  color: var(--color-text-muted);
+  padding: 4px;
+  border-radius: 4px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.botaoRemover:hover {
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+}
+
+.rodape {
+  padding: 1.25rem 1.75rem 2rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.botaoFinalizar {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-text-primary);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.botaoFinalizar:hover {
+  background: var(--color-text-primary);
+  color: #fff;
+}
+
+.botaoContinuar,
+.botaoContinuarRodape {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-text-primary);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.botaoContinuar:hover,
+.botaoContinuarRodape:hover {
+  background: var(--color-text-primary);
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .carrinho {
+    width: 100vw;
+  }
+
+  .cabecalho,
+  .contadorItens,
+  .listaItens,
+  .rodape {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
